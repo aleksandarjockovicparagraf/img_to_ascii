@@ -1,4 +1,4 @@
-module aleksandarjockovicparagraf/img_to_ascii.git
+module aleksandarjockovicparagraf/img_to_ascii
 
 go 1.22.4
 

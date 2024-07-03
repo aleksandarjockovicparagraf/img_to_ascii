@@ -14,6 +14,8 @@ import (
 	_ "image/png"
 )
 
+const MAX_WIDTH uint8 = 180
+
 func main() {
 	_ = os.Args
 	_ = os.Args[1:]
@@ -42,12 +44,10 @@ func get_image_from_file_path(filePath string) (image.Image, error) {
 	height := image.Bounds().Dy()
 	aspectRatio := float64(width) / float64(height)
 
-	newHeight := uint(float64(80) / aspectRatio)
-
-	resizedImage := resize.Resize(uint(80), newHeight, image, resize.Lanczos3)
+	newHeight := uint(float64(MAX_WIDTH) / aspectRatio)
+	resizedImage := resize.Resize(uint(MAX_WIDTH), newHeight, image, resize.Lanczos3)
 
 	return resizedImage, err
-
 }
 
 func get_grayscale(image image.Image) [][]float64 {
@@ -87,27 +87,27 @@ func map_grayscale_to_char(grayscale [][]float64) [][]string {
 
 			switch gray {
 			case 0.0:
-				char_map[y][x] = " "
+				char_map[y][x] = "  "
 			case 0.1:
-				char_map[y][x] = " "
+				char_map[y][x] = "  "
 			case 0.2:
-				char_map[y][x] = "."
+				char_map[y][x] = ".."
 			case 0.3:
-				char_map[y][x] = ":"
+				char_map[y][x] = "::"
 			case 0.4:
-				char_map[y][x] = "-"
+				char_map[y][x] = "--"
 			case 0.5:
-				char_map[y][x] = "="
+				char_map[y][x] = "=="
 			case 0.6:
-				char_map[y][x] = "+"
+				char_map[y][x] = "++"
 			case 0.7:
-				char_map[y][x] = "*"
+				char_map[y][x] = "**"
 			case 0.8:
-				char_map[y][x] = "#"
+				char_map[y][x] = "##"
 			case 0.9:
-				char_map[y][x] = "%"
+				char_map[y][x] = "%%"
 			default:
-				char_map[y][x] = "@"
+				char_map[y][x] = "@@"
 			}
 
 			fmt.Print(char_map[y][x])
